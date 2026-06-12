@@ -7,20 +7,20 @@ on:
 
 jobs:
   deploy-static-files:
-    name: Sync Source Files to cPanel Folder
+    name: Pull Code Directly to Server Webroot
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Execute Remote SSH Commands
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          server: ${{ secrets.SERVER_HOST }}
+          host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          port: 21 
-          local-dir: ./
-          # Setting to dot-slash ensures it drops right into your authenticated root directory
-          server-dir: ./
+          port: 22
+          script: |
+            cd /home/gideon.vudse26.cloud/public_html
+            # Clean up old initialization files if any exist
+            rm -rf *
+            # Force pull the absolute latest source directly onto the web path
+            git clone https://github.com/${{ github.repository }} .
