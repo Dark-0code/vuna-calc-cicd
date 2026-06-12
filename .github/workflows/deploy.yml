@@ -1,0 +1,25 @@
+name: Deploy Gideon Calculator App
+
+on:
+  push:
+    branches:
+      - main  # This starts the deployment runner whenever you git push to main
+
+jobs:
+  deploy-static-files:
+    name: Sync Source Files to cPanel Folder
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: SFTP Deploy Action
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          local-dir: ./
+          server-dir: ./public_html/   # Targets your specific web address webroot folder directly
