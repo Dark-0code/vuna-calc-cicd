@@ -1,4 +1,4 @@
-name: Deploy Gideon Calculator App
+name: Deploy Gideon Calculator with Docker Structure
 
 on:
   push:
@@ -6,12 +6,27 @@ on:
       - main
 
 jobs:
-  deploy-static-files:
-    name: Pull Code Directly to Server Webroot
+  build-and-deploy:
+    name: Build Artifacts and Sync to Server
     runs-on: ubuntu-latest
 
     steps:
-      - name: Execute Remote SSH Commands
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # This step simulates a local Docker build to verify your Dockerfile works perfectly
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Test Docker Build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false # We only build it locally to verify it compiles with no errors
+
+      # Once Docker passes, we push your static structure directly to your server folder
+      - name: Execute Remote SSH Pull
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -19,9 +34,5 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
-            # Navigate inside public_html and target custom sub-items directly
-            # This safely clears files and sub-folders without triggering restricted shell locks
             find public_html/ -mindepth 1 -delete
-            
-            # Now that it's completely empty, clone your repo directly into it
             git clone https://github.com/Dark-0code/vuna-calc-cicd public_html/
