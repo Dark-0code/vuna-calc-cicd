@@ -19,8 +19,9 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
-            # Clean only your calculator files inside public_html, leaving system directories alone
-            rm -f public_html/*
+            # Navigate inside public_html and target custom sub-items directly
+            # This safely clears files and sub-folders without triggering restricted shell locks
+            find public_html/ -mindepth 1 -delete
             
-            # Git clone directly into the public_html folder using your exact repository URL
+            # Now that it's completely empty, clone your repo directly into it
             git clone https://github.com/Dark-0code/vuna-calc-cicd public_html/
