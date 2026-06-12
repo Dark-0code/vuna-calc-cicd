@@ -19,8 +19,8 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
-            cd /home/gideon.vudse26.cloud/public_html
-            # Clean up old initialization files if any exist
-            rm -rf *
-            # Force pull the absolute latest source directly onto the web path
-            git clone https://github.com/${{ github.repository }} .
+            # Clean only your calculator files inside public_html, leaving system directories alone
+            rm -f public_html/*
+            
+            # Git clone directly into the public_html folder using your exact repository URL
+            git clone https://github.com/Dark-0code/vuna-calc-cicd public_html/
