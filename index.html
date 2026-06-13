@@ -3,63 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gideon's SEN 482 Assignment</title>
+    <title>Idoko Gideon — SEN 482 CI/CD Platform</title>
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #9face6);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            color: #333;
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow: hidden;
+            position: relative;
         }
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 500px;
+
+        /* Technical background glowing shapes */
+        body::before, body::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            opacity: 0.15;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+        body::before {
+            width: 300px;
+            height: 300px;
+            background: #3b82f6;
+            top: 15%;
+            left: 20%;
+        }
+        body::after {
+            width: 250px;
+            height: 250px;
+            background: #a855f7;
+            bottom: 15%;
+            right: 20%;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.1); }
+        }
+
+        .hero-card {
+            position: relative;
+            z-index: 10;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            max-width: 520px;
             width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        h1 {
-            color: #4a54f1;
-            margin-bottom: 10px;
-        }
-        h3 {
-            color: #666;
-            margin-bottom: 30px;
-        }
-        .btn {
+
+        .badge {
             display: inline-block;
-            text-decoration: none;
-            background: #4a54f1;
-            color: #fff;
-            padding: 15px 32px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(74, 84, 241, 0.4);
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
         }
-        .btn:hover {
-            background: #373fd3;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(74, 84, 241, 0.6);
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta-info {
+            font-size: 18px;
+            color: #818cf8;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 35px 0;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            background: var(--primary);
+            color: #ffffff;
+            padding: 16px 36px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 14px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            letter-spacing: -0.01em;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>SEN 482: CI/CD Project</h1>
-        <h3>Idoko Gideon — VUG/SEN/22/7280</h3>
-        <p style="margin-bottom: 40px; color: #555;">Welcome to my automated deployment web environment running seamlessly via GitHub Actions over a secure VPS wrapper shell.</p>
+    <div class="hero-card">
+        <span class="badge">SEN 482 Project</span>
+        <h1>Continuous Deployment Environment</h1>
+        <div class="meta-info">Idoko Gideon &middot; VUG/SEN/22/7280</div>
+        <p>This localized webroot space operates dynamically through automated GitHub Actions workflows executing directly within isolated VPS shell layers upon code commit.</p>
         
-        <a href="./calculator/index.html" class="btn">Launch Calculator</a>
+        <div class="btn-container">
+            <a href="./calculator/index.html" class="action-btn">Launch Calculator Application</a>
+        </div>
     </div>
 
 </body>
