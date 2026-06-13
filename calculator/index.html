@@ -9,58 +9,64 @@
 <body>
 
     <div class="calculator-container">
-        <div class="mode-container">
-            <select id="calc-mode" onchange="switchMode()">
-                <option value="standard">Standard Calculator</option>
-                <option value="temperature">Temperature Converter</option>
-            </select>
-        </div>
-
-        <div id="standard-ui">
-            <input type="text" id="display" readonly placeholder="0">
-            <div class="buttons">
-                <button class="btn clear" onclick="clearDisplay()">C</button>
-                <button class="btn operator" onclick="appendOperator('/')">/</button>
-                <button class="btn operator" onclick="appendOperator('*')">*</button>
-                <button class="btn operator" onclick="appendOperator('-')">-</button>
+        <div class="calculator-card">
+            <div class="calculator-body">
                 
-                <button class="btn" onclick="appendNumber('7')">7</button>
-                <button class="btn" onclick="appendNumber('8')">8</button>
-                <button class="btn" onclick="appendNumber('9')">9</button>
-                <button class="btn operator" onclick="appendOperator('+')">+</button>
-                
-                <button class="btn" onclick="appendNumber('4')">4</button>
-                <button class="btn" onclick="appendNumber('5')">5</button>
-                <button class="btn" onclick="appendNumber('6')">6</button>
-                <button class="btn equal" onclick="calculateResult()">=</button>
-                
-                <button class="btn" onclick="appendNumber('1')">1</button>
-                <button class="btn" onclick="appendNumber('2')">2</button>
-                <button class="btn" onclick="appendNumber('3')">3</button>
-                <button class="btn zero" onclick="appendNumber('0')">0</button>
-                <button class="btn" onclick="appendNumber('.')">.</button>
-            </div>
-        </div>
+                <div class="mode-container">
+                    <select id="calc-mode" onchange="switchMode()">
+                        <option value="standard">Standard Calculator</option>
+                        <option value="temperature">Temperature Converter</option>
+                    </select>
+                </div>
 
-        <div id="temp-ui" style="display: none;">
-            <div class="temp-group">
-                <input type="number" id="temp-input" placeholder="Enter value" oninput="convertTemperature()">
-                <select id="temp-from" onchange="convertTemperature()">
-                    <option value="C">Celsius (°C)</option>
-                    <option value="F">Fahrenheit (°F)</option>
-                    <option value="K">Kelvin (K)</option>
-                </select>
-            </div>
-            
-            <div class="temp-arrow">↓ TO ↓</div>
+                <div id="standard-ui">
+                    <input type="text" id="display" readonly placeholder="0">
+                    <div class="btn-grid">
+                        <button class="calc-btn btn-clear" onclick="clearDisplay()">C</button>
+                        <button class="calc-btn btn-operator" onclick="appendOperator('/')">/</button>
+                        <button class="calc-btn btn-operator" onclick="appendOperator('*')">*</button>
+                        <button class="calc-btn btn-operator" onclick="appendOperator('-')">-</button>
+                        
+                        <button class="calc-btn btn-number" onclick="appendNumber('7')">7</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('8')">8</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('9')">9</button>
+                        <button class="calc-btn btn-operator" onclick="appendOperator('+')">+</button>
+                        
+                        <button class="calc-btn btn-number" onclick="appendNumber('4')">4</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('5')">5</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('6')">6</button>
+                        <button class="calc-btn btn-equals" onclick="calculateResult()">=</button>
+                        
+                        <button class="calc-btn btn-number" onclick="appendNumber('1')">1</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('2')">2</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('3')">3</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('0')">0</button>
+                        <button class="calc-btn btn-number" onclick="appendNumber('.')">.</button>
+                    </div>
+                </div>
 
-            <div class="temp-group">
-                <input type="text" id="temp-result" readonly placeholder="Result">
-                <select id="temp-to" onchange="convertTemperature()">
-                    <option value="F">Fahrenheit (°F)</option>
-                    <option value="C">Celsius (°C)</option>
-                    <option value="K">Kelvin (K)</option>
-                </select>
+                <div id="temp-ui" style="display: none;">
+                    <div class="temp-group">
+                        <input type="number" id="temp-input" placeholder="Enter value" oninput="convertTemperature()">
+                        <select id="temp-from" onchange="convertTemperature()">
+                            <option value="C">Celsius (°C)</option>
+                            <option value="F">Fahrenheit (°F)</option>
+                            <option value="K">Kelvin (K)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="temp-arrow">↓ TO ↓</div>
+
+                    <div class="temp-group">
+                        <input type="text" id="temp-result" readonly placeholder="Result">
+                        <select id="temp-to" onchange="convertTemperature()">
+                            <option value="F" selected>Fahrenheit (°F)</option>
+                            <option value="C">Celsius (°C)</option>
+                            <option value="K">Kelvin (K)</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

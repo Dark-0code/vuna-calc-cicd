@@ -2,11 +2,16 @@ let displayValue = "";
 
 // --- Standard Calculator Logic ---
 function appendNumber(num) {
-    displayValue += num;
+    if (displayValue === "0" && num !== ".") {
+        displayValue = num;
+    } else {
+        displayValue += num;
+    }
     document.getElementById("display").value = displayValue;
 }
 
 function appendOperator(op) {
+    if (displayValue === "") return; // Avoid leading operators
     displayValue += " " + op + " ";
     document.getElementById("display").value = displayValue;
 }
@@ -18,7 +23,14 @@ function clearDisplay() {
 
 function calculateResult() {
     try {
+        if (displayValue.trim() === "") return;
         let result = eval(displayValue);
+        
+        // Handle floating-point precision issues (e.g., 0.1 + 0.2)
+        if (result % 1 !== 0) {
+            result = parseFloat(result.toFixed(4));
+        }
+        
         document.getElementById("display").value = result;
         displayValue = result.toString();
     } catch (error) {
@@ -34,8 +46,12 @@ function switchMode() {
         document.getElementById("standard-ui").style.display = "block";
         document.getElementById("temp-ui").style.display = "none";
     } else {
+        document.getElementById("standard-ui").style.display = "block";
+        document.getElementById("standard-ui").style.setProperty('display', 'none', 'important');
         document.getElementById("standard-ui").style.display = "none";
         document.getElementById("temp-ui").style.display = "block";
+        // Run conversion immediately on switch in case numbers are pre-filled
+        convertTemperature();
     }
 }
 
@@ -73,5 +89,6 @@ function convertTemperature() {
         finalOutput = celsiusValue + 273.15;
     }
 
+    // Output formatted cleanly to 2 decimal spaces
     resultField.value = finalOutput.toFixed(2);
 }
