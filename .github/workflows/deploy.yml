@@ -45,5 +45,8 @@ jobs:
           port: 22
           script: |
             find public_html/ -mindepth 1 -delete
-            # (Swap this repository link to match whose account you are running this on)
             git clone https://github.com/Dark-0code/vuna-calc-cicd public_html/
+            
+            # Navigate into the server directory and install the packages
+            cd public_html
+            npm install
