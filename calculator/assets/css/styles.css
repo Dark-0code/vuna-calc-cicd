@@ -1,9 +1,9 @@
 :root {
-      --primary-color: #0d6efd;
-      --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      --card-bg: rgba(255, 255, 255, 0.9);
-      --btn-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      --btn-hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      --primary-color: #d63384; /* Vibrant Pink Accent */
+      --bg-gradient: linear-gradient(135deg, #fff0f6 0%, #fcc2d7 100%); /* Soft Pastel Pink Gradient */
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --btn-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+      --btn-hover-shadow: 0 6px 12px rgba(214, 51, 132, 0.15);
     }
 
     body {
@@ -17,9 +17,9 @@
     .calculator-card {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 40px rgba(214, 51, 132, 0.08);
       overflow: hidden;
       transition: transform 0.3s ease;
     }
@@ -29,11 +29,11 @@
     }
 
     .display-container {
-      background: #f8f9fa;
+      background: #fff0f6;
       padding: 20px;
       border-radius: 16px;
       margin-bottom: 20px;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+      box-shadow: inset 0 2px 4px rgba(214, 51, 132, 0.05);
       height: 100px;
       display: flex;
       align-items: center;
@@ -58,7 +58,7 @@
       background: rgba(255, 255, 255, 0.6);
       border-radius: 16px;
       padding: 12px 18px;
-      border: 1px dashed rgba(13, 110, 253, 0.2);
+      border: 1px dashed rgba(214, 51, 132, 0.2);
       display: none;
       align-items: center;
       justify-content: space-between;
@@ -71,7 +71,6 @@
         opacity: 0;
         transform: translateY(10px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -114,12 +113,12 @@
       justify-content: center;
       transition: all 0.2s ease;
       flex-shrink: 0;
-      box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2);
+      box-shadow: 0 4px 10px rgba(214, 51, 132, 0.2);
     }
 
     #speak-btn:hover:not(:disabled) {
       transform: scale(1.05);
-      background: #0b5ed7;
+      background: #b8256f;
     }
 
     #speak-btn:disabled {
@@ -134,17 +133,9 @@
     }
 
     @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(250, 82, 82, 0.4);
-      }
-
-      70% {
-        box-shadow: 0 0 0 10px rgba(250, 82, 82, 0);
-      }
-
-      100% {
-        box-shadow: 0 0 0 0 rgba(250, 82, 82, 0);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(250, 82, 82, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(250, 82, 82, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(250, 82, 82, 0); }
     }
 
     .btn-grid {
@@ -181,16 +172,17 @@
     }
 
     .btn-light:hover {
-      background: #f1f3f5;
+      background: #fff0f6;
+      color: var(--primary-color);
     }
 
     .btn-operator {
-      background: #e7f1ff;
+      background: #fff0f6;
       color: var(--primary-color);
     }
 
     .btn-operator:hover {
-      background: #cfe2ff;
+      background: #ffdeeb;
     }
 
     .btn-action {
@@ -209,7 +201,7 @@
     }
 
     .btn-equals:hover {
-      background: #0b5ed7;
+      background: #b8256f;
       color: white;
     }
 
@@ -240,17 +232,17 @@
     }
 
     body.dark-mode {
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-      color: #e0e0e0;
+      background: linear-gradient(135deg, #1f0914 0%, #2d121e 100%); /* Deep Dark Magenta/Pink tint */
+      color: #f8f9fa;
     }
 
     body.dark-mode .calculator-card {
-      background: rgba(45, 45, 45, 0.9);
-      border-color: rgba(255, 255, 255, 0.1);
+      background: rgba(45, 25, 35, 0.9);
+      border-color: rgba(255, 193, 213, 0.1);
     }
 
     body.dark-mode .display-container {
-      background: #333333;
+      background: #3a1d2a;
       color: #e0e0e0;
     }
 
@@ -259,36 +251,36 @@
     }
 
     body.dark-mode .btn-light {
-      background: #444444;
+      background: #4a2837;
       color: #e0e0e0;
     }
 
     body.dark-mode .btn-light:hover {
-      background: #555555;
+      background: #5c3547;
     }
 
     body.dark-mode .accordion-button {
-      background-color: #444444;
+      background-color: #4a2837;
       color: #e0e0e0;
     }
 
     body.dark-mode .accordion-button:not(.collapsed) {
-      background-color: #555555;
+      background-color: #5c3547;
       color: #e0e0e0;
     }
 
     body.dark-mode .form-control,
     body.dark-mode .form-select {
-      background-color: #444444;
+      background-color: #4a2837;
       color: #e0e0e0;
-      border-color: #555555;
+      border-color: #5c3547;
     }
 
     body.dark-mode .form-control:focus,
     body.dark-mode .form-select:focus {
-      background-color: #555555;
+      background-color: #5c3547;
       color: #e0e0e0;
-      border-color: #0d6efd;
+      border-color: var(--primary-color);
     }
 
     #hausa-btn {
@@ -319,7 +311,7 @@
     }
 
     #english-btn {
-      background: #0d6efd;
+      background: var(--primary-color);
       border: none;
       color: white;
       width: 40px;
@@ -418,7 +410,7 @@
     }
 
     #clear-history-btn:hover {
-      background: #0b5ed7;
+      background: #b8256f;
       transform: translateY(-2px);
     }
 
@@ -455,12 +447,12 @@
     }
 
     .btn-remark {
-      background: #e7f1ff;
-      color: #0d6efd;
+      background: #fff0f6;
+      color: var(--primary-color);
     }
 
     .btn-remark:hover {
-      background: #cfe2ff;
+      background: #ffdeeb;
     }
 
     .remark-box {
@@ -491,7 +483,7 @@
       width: 46px;
       height: 46px;
       border-radius: 14px;
-      background: rgba(13, 110, 253, 0.15);
+      background: rgba(214, 51, 132, 0.15);
       color: var(--primary-color);
       border: none;
       font-size: 22px;
@@ -501,7 +493,7 @@
       transform: translateY(10px);
       pointer-events: none;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(13, 110, 253, 0.15);
+      box-shadow: 0 8px 20px rgba(214, 51, 132, 0.15);
       backdrop-filter: blur(6px);
       z-index: 999;
     }
@@ -565,19 +557,18 @@
       color: #adb5bd;
       box-shadow: none;
     }
-     .wrapper { width: 100%; max-width: 680px; }
+    .wrapper { width: 100%; max-width: 680px; }
  
-    /* ── Age / Date accordion card ── */
     .adc-card {
       background: var(--card-bg);
       border-radius: 18px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.05);
       overflow: hidden;
     }
     .adc-tabs {
       display: flex;
-      background: #f1f3f5;
-      border-bottom: 2px solid #dee2e6;
+      background: #fff0f6;
+      border-bottom: 2px solid #ffdeeb;
     }
     .adc-tab {
       flex: 1;
@@ -598,12 +589,11 @@
       color: var(--primary-color);
       border-bottom: 3px solid var(--primary-color);
     }
-    .adc-tab:hover:not(.active) { background: #e9ecef; color: #495057; }
+    .adc-tab:hover:not(.active) { background: #ffdeeb; color: #495057; }
  
     .adc-pane { display: none; padding: 20px; }
     .adc-pane.active { display: block; }
  
-    /* Result chip strip */
     .chip-row {
       display: flex;
       flex-wrap: wrap;
@@ -615,7 +605,7 @@
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: rgba(15, 23, 42, 0.72);
+      background: rgba(45, 15, 25, 0.72);
       padding: 20px;
       align-items: center;
       justify-content: center;
@@ -630,7 +620,7 @@
       background: #ffffff;
       border-radius: 24px;
       padding: 20px;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 24px 64px rgba(214, 51, 132, 0.15);
     }
 
     .camera-solver-preview {
@@ -638,9 +628,9 @@
       min-height: 280px;
       max-height: 420px;
       object-fit: cover;
-      background: #0f172a;
+      background: #1f0914;
+      border: 1px solid rgba(214, 51, 132, 0.15);
       border-radius: 18px;
-      border: 1px solid rgba(13, 110, 253, 0.15);
     }
 
     .camera-solver-canvas {
@@ -662,26 +652,26 @@
 
     .camera-solver-result {
       margin-top: 14px;
-      background: #f8f9fa;
+      background: #fff0f6;
       border-radius: 16px;
       padding: 14px 16px;
-      border: 1px solid rgba(13, 110, 253, 0.12);
+      border: 1px solid rgba(214, 51, 132, 0.12);
     }
 
     .camera-solver-input {
       width: 100%;
-      border: 1px solid rgba(13, 110, 253, 0.2);
+      border: 1px solid rgba(214, 51, 132, 0.2);
       border-radius: 12px;
       padding: 10px 12px;
       min-height: 88px;
       resize: vertical;
       font-size: 16px;
-      color: #0d6efd;
+      color: var(--primary-color);
       background: #ffffff;
     }
     
     .chip {
-      background: #e7f1ff;
+      background: #fff0f6;
       border-radius: 12px;
       padding: 8px 14px;
       text-align: center;
@@ -703,12 +693,11 @@
       margin-top: 2px;
     }
  
-    /* Zodiac badge */
     .zodiac-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #d63384, #f06595);
       color: white;
       padding: 8px 16px;
       border-radius: 20px;
@@ -718,9 +707,8 @@
     }
     .zodiac-badge .z-emoji { font-size: 1.4rem; }
  
-    /* Highlight result box */
     .highlight-box {
-      background: #f8f9fa;
+      background: #fff0f6;
       border-left: 4px solid var(--primary-color);
       border-radius: 8px;
       padding: 12px 16px;
@@ -729,7 +717,6 @@
     }
     .highlight-box strong { color: var(--primary-color); }
  
-    /* Progress bar for day-of-year */
     .year-bar-wrap { margin-top: 14px; }
     .year-bar-label {
       display: flex;
@@ -738,16 +725,15 @@
       color: #6c757d;
       margin-bottom: 4px;
     }
-    .year-bar .progress-bar { transition: width .5s ease; }
+    .year-bar .progress-bar { transition: width .5s ease; background-color: var(--primary-color); }
  
-    /* Countdown ring */
     .countdown-ring-wrap {
       display: flex;
       justify-content: center;
       margin: 14px 0 8px;
     }
     .ring-svg { transform: rotate(-90deg); }
-    .ring-bg { fill: none; stroke: #e9ecef; stroke-width: 10; }
+    .ring-bg { fill: none; stroke: #fff0f6; stroke-width: 10; }
     .ring-fg { fill: none; stroke: var(--primary-color); stroke-width: 10;
                stroke-linecap: round; transition: stroke-dashoffset .6s ease; }
     .ring-text {
@@ -772,52 +758,52 @@
       color: #adb5bd;
       margin-bottom: 8px;
     }
+
     #yoruba-btn {
-  background: #f59f00;
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(245, 159, 0, 0.2);
-}
+      background: #f59f00;
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(245, 159, 0, 0.2);
+    }
 
-#yoruba-btn:hover:not(:disabled) {
-  background: #d97706;
-  transform: scale(1.05);
-}
+    #yoruba-btn:hover:not(:disabled) {
+      background: #d97706;
+      transform: scale(1.05);
+    }
 
-#yoruba-btn:disabled {
-  background: #e9ecef;
-  color: #adb5bd;
-  box-shadow: none;
-}
+    #yoruba-btn:disabled {
+      background: #e9ecef;
+      color: #adb5bd;
+      box-shadow: none;
+    }
  
-  /* error state */
-  .adc-error { color: #dc3545; font-size: .85rem; margin-top: 6px; display: none; }
+    .adc-error { color: #dc3545; font-size: .85rem; margin-top: 6px; display: none; }
 
-/* Add these to your existing styles.css */
-.temperature-card {
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
+    .temperature-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(214, 51, 132, 0.08);
+      transition: transform 0.3s ease;
+    }
 
-.temperature-card:hover { transform: translateY(-5px); }
+    .temperature-card:hover { transform: translateY(-5px); }
 
-body.dark-mode .temperature-card {
-  background: rgba(45, 45, 45, 0.9);
-  border-color: rgba(255, 255, 255, 0.1);
-}
+    body.dark-mode .temperature-card {
+      background: rgba(45, 25, 35, 0.9);
+      border-color: rgba(255, 193, 213, 0.1);
+    }
 
-body.dark-mode .chip { background: #333333; }
-body.dark-mode .chip .chip-lbl { color: #adb5bd; }
+    body.dark-mode .chip { background: #4a2837; }
+    body.dark-mode .chip .chip-lbl { color: #adb5bd; }
+    body.dark-mode .ring-text { fill: #f8f9fa; }
