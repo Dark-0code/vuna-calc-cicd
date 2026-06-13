@@ -1,76 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gideon's Advanced Calculator</title>
-    <link rel="stylesheet" href="assets/css/calculator.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
-
-    <div class="calculator-container">
-        <div class="calculator-card">
-            <div class="calculator-body">
-                
-                <div class="mode-container">
-                    <select id="calc-mode" onchange="switchMode()">
-                        <option value="standard">Standard Calculator</option>
-                        <option value="temperature">Temperature Converter</option>
-                    </select>
-                </div>
-
-                <div id="standard-ui">
-                    <input type="text" id="display" readonly placeholder="0">
-                    <div class="btn-grid">
-                        <button class="calc-btn btn-clear" onclick="clearDisplay()">C</button>
-                        <button class="calc-btn btn-operator" onclick="appendOperator('/')">/</button>
-                        <button class="calc-btn btn-operator" onclick="appendOperator('*')">*</button>
-                        <button class="calc-btn btn-operator" onclick="appendOperator('-')">-</button>
-                        
-                        <button class="calc-btn btn-number" onclick="appendNumber('7')">7</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('8')">8</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('9')">9</button>
-                        <button class="calc-btn btn-operator" onclick="appendOperator('+')">+</button>
-                        
-                        <button class="calc-btn btn-number" onclick="appendNumber('4')">4</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('5')">5</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('6')">6</button>
-                        <button class="calc-btn btn-equals" onclick="calculateResult()">=</button>
-                        
-                        <button class="calc-btn btn-number" onclick="appendNumber('1')">1</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('2')">2</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('3')">3</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('0')">0</button>
-                        <button class="calc-btn btn-number" onclick="appendNumber('.')">.</button>
-                    </div>
-                </div>
-
-                <div id="temp-ui" style="display: none;">
-                    <div class="temp-group">
-                        <input type="number" id="temp-input" placeholder="Enter value" oninput="convertTemperature()">
-                        <select id="temp-from" onchange="convertTemperature()">
-                            <option value="C">Celsius (°C)</option>
-                            <option value="F">Fahrenheit (°F)</option>
-                            <option value="K">Kelvin (K)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="temp-arrow">↓ TO ↓</div>
-
-                    <div class="temp-group">
-                        <input type="text" id="temp-result" readonly placeholder="Result">
-                        <select id="temp-to" onchange="convertTemperature()">
-                            <option value="F" selected>Fahrenheit (°F)</option>
-                            <option value="C">Celsius (°C)</option>
-                            <option value="K">Kelvin (K)</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
+  <button class="btn btn-outline-secondary theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-6 col-sm-8">
+        <div class="border border-dotted border-3 rounded-3 p-3 mb-4 bg-white bg-opacity-50">
+          <h4 class="text-center group-header mb-0">VUNA CALCULATOR</h4>
+          <p class="text-center text-small text-muted"><i>Created by set 2025/26 Software Engineering</i></p>
         </div>
-    </div>
+        
+        <div class="card calculator-card mb-4">
+          <div class="card-body p-4">
+            <div class="calculator">
+              <div class="display-container">
+                <input type="text" class="form-control" id="result" placeholder="0" disabled />
+              </div>
+              <div class="btn-grid">
+                <button class="btn btn-light" onclick="bracketToResult('(')">(</button>
+                <button class="btn btn-light" onclick="bracketToResult(')')">)</button>
+                <button class="btn btn-light" onclick="backspace()">←</button>
+                <button class="btn btn-action" onclick="clearResult()">AC</button>
+                <button class="btn btn-light" onclick="appendToResult(7)">7</button>
+                <button class="btn btn-light" onclick="appendToResult(8)">8</button>
+                <button class="btn btn-light" onclick="appendToResult(9)">9</button>
+                <button class="btn btn-operator" onclick="operatorToResult('/')">÷</button>
+                <button class="btn btn-light" onclick="appendToResult(4)">4</button>
+                <button class="btn btn-light" onclick="appendToResult(5)">5</button>
+                <button class="btn btn-light" onclick="appendToResult(6)">6</button>
+                <button class="btn btn-operator" onclick="operatorToResult('*')">×</button>
+                <button class="btn btn-light" onclick="appendToResult(1)">1</button>
+                <button class="btn btn-light" onclick="appendToResult(2)">2</button>
+                <button class="btn btn-light" onclick="appendToResult(3)">3</button>
+                <button class="btn btn-operator" onclick="operatorToResult('+')">+</button>
+                <button class="btn btn-light" onclick="appendToResult('.')">.</button>
+                <button class="btn btn-light" onclick="appendToResult(0)">0</button>
+                <button class="btn btn-operator" onclick="percentToResult('%')">%</button>
+                <button class="btn btn-operator" onclick="operatorToResult('-')">−</button>
+                <button class="btn btn-equals" onclick="calculateResult()" style="grid-column: span 4;">=</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <script src="script.js"></script>
+        <div class="card mb-4 temperature-card">
+          <div class="card-body p-4">
+            <h5 class="section-title mb-3">🌡️ Temperature Converter</h5>
+            <div class="row g-3">
+              <div class="col-6">
+                <label class="small-label">Value</label>
+                <input type="number" id="temp-input" class="form-control" placeholder="0" oninput="convertTemperature()">
+              </div>
+              <div class="col-6">
+                <label class="small-label">From</label>
+                <select id="temp-from" class="form-select" onchange="convertTemperature()">
+                  <option value="C">Celsius (°C)</option>
+                  <option value="F">Fahrenheit (°F)</option>
+                  <option value="K">Kelvin (K)</option>
+                </select>
+              </div>
+            </div>
+            <div class="chip-row mt-3">
+              <div class="chip"><span class="chip-val" id="temp-res-c">0°C</span><span class="chip-lbl">Celsius</span></div>
+              <div class="chip"><span class="chip-val" id="temp-res-f">32°F</span><span class="chip-lbl">Fahrenheit</span></div>
+              <div class="chip"><span class="chip-val" id="temp-res-k">273.15K</span><span class="chip-lbl">Kelvin</span></div>
+            </div>
+          </div>
+        </div>
+
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+        <script src="assets/js/script.js"></script>
+        <button id="scroll-to-calculator" title="Back to Calculator">↑</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

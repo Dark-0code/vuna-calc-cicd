@@ -1,94 +1,84 @@
-let displayValue = "";
+let LAST_RESULT = 0;
+var currentExpression = "";
 
-// --- Standard Calculator Logic ---
-function appendNumber(num) {
-    if (displayValue === "0" && num !== ".") {
-        displayValue = num;
-    } else {
-        displayValue += num;
-    }
-    document.getElementById("display").value = displayValue;
+function toggleTheme() {
+  const body = document.body;
+  const btn = document.getElementById("theme-toggle");
+  body.classList.toggle("dark-mode");
+  if (body.classList.contains("dark-mode")) {
+    btn.innerHTML = "☀️";
+    localStorage.setItem("theme", "dark");
+  } else {
+    btn.innerHTML = "🌙";
+    localStorage.setItem("theme", "light");
+  }
 }
 
-function appendOperator(op) {
-    if (displayValue === "") return; // Avoid leading operators
-    displayValue += " " + op + " ";
-    document.getElementById("display").value = displayValue;
+window.addEventListener("DOMContentLoaded", function () {
+  const theme = localStorage.getItem("theme");
+  if (theme === "dark") {
+    document.body.classList.add("dark-mode");
+    document.getElementById("theme-toggle").innerHTML = "☀️";
+  }
+});
+
+function appendToResult(value) { currentExpression += value.toString(); updateResult(); }
+function bracketToResult(value) { currentExpression += value; updateResult(); }
+function backspace() { currentExpression = currentExpression.slice(0, -1); updateResult(); }
+function operatorToResult(value) { currentExpression += (value === "^" ? "**" : value); updateResult(); }
+function clearResult() { currentExpression = ""; updateResult(); }
+
+function normalizeExpression(expr) {
+  return expr.replace(/asin\(/g, "asinDeg(").replace(/acos\(/g, "acosDeg(").replace(/atan\(/g, "atanDeg(")
+             .replace(/sin\(/g, "sinDeg(").replace(/cos\(/g, "cosDeg(").replace(/tan\(/g, "tanDeg(")
+             .replace(/asinh\(/g, "asinh(").replace(/sinh\(/g, "sinh(").replace(/\be\b/g, "Math.E")
+             .replace(/\bpi\b/g, "Math.PI");
 }
 
-function clearDisplay() {
-    displayValue = "";
-    document.getElementById("display").value = "0";
+function percentToResult() {
+  if (!currentExpression) return;
+  const match = currentExpression.match(/(.+?)(\*\*|[+\-*/^])([0-9.]*)$/);
+  if (!match) {
+    const num = parseFloat(currentExpression);
+    if (!isNaN(num)) currentExpression = (num / 100).toString();
+  } else {
+    const leftVal = eval(match[1]);
+    const rightVal = parseFloat(match[3]);
+    currentExpression = ((leftVal * rightVal) / 100).toString();
+  }
+  currentExpression += "*";
+  updateResult();
+}
+
+function calculateExpression(expression) {
+  try {
+    let normalized = normalizeExpression(expression).replace(/\bans\b/gi, LAST_RESULT);
+    let result = eval(normalized);
+    return (isNaN(result) || !isFinite(result)) ? "Error" : result;
+  } catch (e) { return "Error"; }
 }
 
 function calculateResult() {
-    try {
-        if (displayValue.trim() === "") return;
-        let result = eval(displayValue);
-        
-        // Handle floating-point precision issues (e.g., 0.1 + 0.2)
-        if (result % 1 !== 0) {
-            result = parseFloat(result.toFixed(4));
-        }
-        
-        document.getElementById("display").value = result;
-        displayValue = result.toString();
-    } catch (error) {
-        document.getElementById("display").value = "Error";
-        displayValue = "";
-    }
+  if (!currentExpression) return;
+  let result = calculateExpression(currentExpression);
+  LAST_RESULT = result;
+  document.getElementById("result").value = result;
+  currentExpression = String(result);
+  updateResult();
 }
 
-// --- Dynamic Mode Switching Logic ---
-function switchMode() {
-    const mode = document.getElementById("calc-mode").value;
-    if (mode === "standard") {
-        document.getElementById("standard-ui").style.display = "block";
-        document.getElementById("temp-ui").style.display = "none";
-    } else {
-        document.getElementById("standard-ui").style.display = "block";
-        document.getElementById("standard-ui").style.setProperty('display', 'none', 'important');
-        document.getElementById("standard-ui").style.display = "none";
-        document.getElementById("temp-ui").style.display = "block";
-        // Run conversion immediately on switch in case numbers are pre-filled
-        convertTemperature();
-    }
-}
+function updateResult() { document.getElementById("result").value = currentExpression || "0"; }
 
-// --- Temperature Conversion Logic ---
+// Temperature Conversion Logic
 function convertTemperature() {
-    const val = parseFloat(document.getElementById("temp-input").value);
-    const fromUnit = document.getElementById("temp-from").value;
-    const toUnit = document.getElementById("temp-to").value;
-    const resultField = document.getElementById("temp-result");
+  const inputVal = parseFloat(document.getElementById("temp-input").value);
+  const fromUnit = document.getElementById("temp-from").value;
+  const resC = document.getElementById("temp-res-c"), resF = document.getElementById("temp-res-f"), resK = document.getElementById("temp-res-k");
 
-    if (isNaN(val)) {
-        resultField.value = "";
-        return;
-    }
-
-    let celsiusValue;
-
-    // Convert input unit systematically to Base Celsius
-    if (fromUnit === "C") {
-        celsiusValue = val;
-    } else if (fromUnit === "F") {
-        celsiusValue = (val - 32) * 5 / 9;
-    } else if (fromUnit === "K") {
-        celsiusValue = val - 273.15;
-    }
-
-    let finalOutput;
-
-    // Convert Base Celsius out to target unit
-    if (toUnit === "C") {
-        finalOutput = celsiusValue;
-    } else if (toUnit === "F") {
-        finalOutput = (celsiusValue * 9 / 5) + 32;
-    } else if (toUnit === "K") {
-        finalOutput = celsiusValue + 273.15;
-    }
-
-    // Output formatted cleanly to 2 decimal spaces
-    resultField.value = finalOutput.toFixed(2);
+  if (isNaN(inputVal)) { resC.innerText = "0°C"; resF.innerText = "32°F"; resK.innerText = "273.15K"; return; }
+  
+  let celsius = (fromUnit === "C") ? inputVal : (fromUnit === "F") ? (inputVal - 32) * 5 / 9 : inputVal - 273.15;
+  resC.innerText = celsius.toFixed(2).replace(/\.00$/, "") + "°C";
+  resF.innerText = ((celsius * 9 / 5) + 32).toFixed(2).replace(/\.00$/, "") + "°F";
+  resK.innerText = (celsius + 273.15).toFixed(2).replace(/\.00$/, "") + "K";
 }
