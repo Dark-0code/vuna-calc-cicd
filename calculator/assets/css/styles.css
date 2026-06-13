@@ -801,3 +801,56 @@
  
   /* error state */
   .adc-error { color: #dc3545; font-size: .85rem; margin-top: 6px; display: none; }
+
+/* Mode Switcher Layout */
+.mode-container {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+#calc-mode {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: #2d3748;
+    color: #fff;
+    border: 1px solid #4a5568;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Temperature Converter Form Styling */
+.temp-group {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.temp-group input {
+    flex: 2;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid #4a5568;
+    background: #1a202c;
+    color: #fff;
+}
+
+.temp-group select {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    background: #4a5568;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.temp-arrow {
+    text-align: center;
+    color: #a0aec0;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 5px 0;
+}
