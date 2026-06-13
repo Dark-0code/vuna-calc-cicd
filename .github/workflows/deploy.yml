@@ -11,31 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Download your repository code into the runner environment
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # Set up the Docker Build engine inside the GitHub runner
+      # Step 2: Set up the Docker Build engine inside the GitHub runner
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Log into your personal Docker Hub account using your saved secrets
+      # Step 3: Log into your personal Docker Hub account using repository secrets
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Build the Dockerfile and push it live to your Docker Hub repository
+      # Step 4: Build your Dockerfile and push it live to Docker Hub
       - name: Build and Push to Docker Hub
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          # This names the image after your username and tags it as the absolute latest
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/vuna-calculator:latest
 
-      # Finalize by deploying the structure over your restricted VPS shell
+      # Step 5: Securely connect to the restricted VPS over SSH port 22
       - name: Execute Remote SSH Pull
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -44,9 +44,8 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # Clean up all existing folders and files inside public_html safely
             find public_html/ -mindepth 1 -delete
-            git clone https://github.com/Dark-0code/vuna-calc-cicd public_html/
             
-            # Navigate into the server directory and install the packages
-            cd public_html
-            npm install
+            # Force pull your repository directly into your webroot folder
+            git clone https://github.com/Dark-0code/vuna-calc-cicd public_html/
